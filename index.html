@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compte à rebours</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        #countdown {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        #message {
+            font-size: 1.2rem;
+            color: #666;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="countdown">Chargement...</div>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        // Date d'échéance (à modifier selon tes besoins)
+        const targetDate = new Date("2026-06-14T11:56:00");
+        
+        // Lien à afficher (à modifier selon tes besoins)
+        const targetLink = "https://www.icloud.com/notes/039AX9Lqp0AClFrKq7kBvZenA#Test";
+        const linkText = "Clique ici si tu l'oses";
+
+        // Fonction pour mettre à jour le compte à rebours
+        function updateCountdown() {
+            const now = new Date();
+            const timeLeft = targetDate - now;
+
+            if (timeLeft <= 0) {
+                document.getElementById("countdown").textContent = "Indice suivant :";
+                document.getElementById("message").innerHTML = 
+                    `<a href="${targetLink}" target="_blank">${linkText}</a>`;
+                return;
+            }
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").textContent = 
+                `${days}j ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        // Mettre à jour toutes les secondes
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Appel initial
+    </script>
+</body>
+</html>
